@@ -20,45 +20,45 @@ const contactsSlice = createSlice({
       },
     },
   },
-  extraReducers: {
-    [fetchContacts.pending](state) {
+  extraReducers: builder => {
+    builder.addCase(fetchContacts.pending, state => {
       state.contacts.isLoading = true;
-    },
-    [fetchContacts.fulfilled](state, { payload }) {
+    });
+    builder.addCase(fetchContacts.fulfilled, (state, { payload }) => {
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items = payload;
-    },
-    [fetchContacts.rejected](state, { payload }) {
+    });
+    builder.addCase(fetchContacts.rejected, (state, { payload }) => {
       state.contacts.isLoading = false;
       state.contacts.error = payload;
-    },
-    [addContact.pending](state) {
+    });
+    builder.addCase(addContact.pending, state => {
       state.contacts.isLoading = true;
-    },
-    [addContact.fulfilled](state, { payload }) {
+    });
+    builder.addCase(addContact.fulfilled, (state, { payload }) => {
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items = [payload, ...state.contacts.items];
-    },
-    [addContact.rejected](state, { payload }) {
+    });
+    builder.addCase(addContact.rejected, (state, { payload }) => {
       state.contacts.isLoading = false;
       state.contacts.error = payload;
-    },
-    [deleteContact.pending](state) {
+    });
+    builder.addCase(deleteContact.pending, state => {
       state.contacts.isLoading = true;
-    },
-    [deleteContact.fulfilled](state, { payload }) {
+    });
+    builder.addCase(deleteContact.fulfilled, (state, { payload }) => {
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items = state.contacts.items.filter(
         contact => contact.id !== payload.id
       );
-    },
-    [deleteContact.rejected](state, { payload }) {
+    });
+    builder.addCase(deleteContact.rejected, (state, { payload }) => {
       state.contacts.isLoading = false;
       state.contacts.error = payload;
-    },
+    });
   },
 });
 
